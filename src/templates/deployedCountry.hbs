@@ -1,14 +1,17 @@
-<h2>{{name}}</h2>
+{{#each this}}
+<h2 class="text-center">{{name}}</h2>
 <div class="container-js">
-    <ul>
-        <li class="Capital">Capital:{{Capital}}</li>
-        <li class="population">Population:{{Population}}</li>
+    <ul class="half-width">
+        <li class="Capital">Capital: {{capital}}</li>
+        <li class="population">Population: {{population}}</li>
         <h3>Languages</h3>
         <ml>
             {{#each languages}}
-            <li>{{languages}}</li>
+            {{!-- name здесь берётся из массива languages --}}
+            <li>{{name}}</li>
             {{/each}}
         </ml>
     </ul>
-    <img src="{{flag}}" alt="flag">
+    <img class="half-width" src="{{flag}}" alt="flag">
 </div>
+{{/each}}

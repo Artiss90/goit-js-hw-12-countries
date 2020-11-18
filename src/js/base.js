@@ -1,8 +1,9 @@
 import debounce from 'lodash.debounce';
 import onlyNameCountry from '../templates/only-name-country.hbs';
-// import onlyNameCountry from '../templates/deployedCountry.hbs';
+import deployedCountry from '../templates/deployedCountry.hbs';
 import api from './fetchCountries';
 import { error } from '@pnotify/core';
+
 
 
 const refs = {
@@ -23,14 +24,15 @@ function onSearchCountry(evt) {
 };
 
 function toSelectionData(data) { 
+    if (data.length > 10) {return error({text: 'Найдено слишком много результатов поиска! Пожалуйста, введите больше значений для поиска',});}
     if (data.length > 1) { return renderListCountry(data);}
     if (data.length === 1) {return renderDeployedCountry(data);}
-    // if (data.length > 10) { return error; }
+    if (data.status === 404) {return error({text: 'Неверный запрос',});}
 };
 
 function renderListCountry(nameCountry) {
     const markupList = onlyNameCountry(nameCountry);
-    refs.listCountry.innerHTML = markupList;
+    refs.deployList.innerHTML = markupList;
 };
 
 function renderDeployedCountry(nameCountry) {
